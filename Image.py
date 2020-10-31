@@ -6,6 +6,22 @@ from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Flatten
 from keras.utils import np_utils
 import cv2
 
+from wand.image import Image as Img
+from wand.color import Color
+
+def importPdf(self):
+    filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File",
+                                                        QtCore.QDir.currentPath())
+    print(filename)
+    if not filename:
+        print('error')
+        return
+    with Img(filename=filename,format='jpeg', resolution=300) as image:
+        image.compression_quality = 99
+        image.save(filename='file.jpeg')
+        self.open_picture()
+
+
 def create_training_data():
     #image = cv2.imread('1.jpg')
 
@@ -22,17 +38,19 @@ def create_training_data():
     src = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
     matrix = cv2.HoughLines(src, 1, math.pi / 180,30)
     
-    import pandas as pd 
-    pd.DataFrame(matrix[:][:][0]).to_csv("matrix.csv")
+    #import pandas as pd 
+    #pd.DataFrame(matrix[:][:][0]).to_csv("matrix.csv")
     print(matrix)
 
 create_training_data()
 #train()
 def train():
+    ''' Source: https://www.analyticsvidhya.com/blog/2020/02/learn-image-classification-cnn-convolutional-neural-networks-3-datasets/'''
+
     # to calculate accuracy
     from sklearn.metrics import accuracy_score
 
-    # loading the dataset
+        # loading the dataset
     (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
     # building the input vector from the 28x28 pixels
