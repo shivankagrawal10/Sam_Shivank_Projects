@@ -5,22 +5,25 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Flatten
 from keras.utils import np_utils
 import cv2
+import pandas as pd
+import numpy as np
+from PIL import Image
+#img = Image.open('000051650-1_1_1/000051650-1_1_1.png')
+img=Image.open('dog.png')
+thresh = 200
+fn = lambda x : 255 if x > thresh else 0
+r = img.convert('L').point(fn,mode='1')
+print(img.size)
+print(r.size)
+#r.thumbnail((550,100))
+x,y=r.size
+I = np.array(r.getdata())
+I=I.reshape((y,x))
+print(I)
+print(r.size)
+np.savetxt("foo.csv", I, delimiter=",")
 
-from wand.image import Image as Img
-from wand.color import Color
-
-def importPdf(self):
-    filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File",
-                                                        QtCore.QDir.currentPath())
-    print(filename)
-    if not filename:
-        print('error')
-        return
-    with Img(filename=filename,format='jpeg', resolution=300) as image:
-        image.compression_quality = 99
-        image.save(filename='file.jpeg')
-        self.open_picture()
-
+r.save('foo.png')
 
 def create_training_data():
     #image = cv2.imread('1.jpg')
@@ -42,7 +45,7 @@ def create_training_data():
     #pd.DataFrame(matrix[:][:][0]).to_csv("matrix.csv")
     print(matrix)
 
-create_training_data()
+#create_training_data()
 #train()
 def train():
     ''' Source: https://www.analyticsvidhya.com/blog/2020/02/learn-image-classification-cnn-convolutional-neural-networks-3-datasets/'''
