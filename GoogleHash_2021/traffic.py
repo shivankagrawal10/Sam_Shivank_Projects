@@ -40,28 +40,33 @@ with open(os.path.join(sys.path[0],"a.txt"), "r") as f:
             path.append([street,street_hash[street][2]])
         #path[-1] = path[-1][:-1]
         cars.append(path)
-        
-unused = {}
-for i in range(0,num_i):
-    unused[i] = 1
-for c in cars:
-    for name in c[1:-1]:
-        if street_hash[name[0]][0] in unused:
-            del unused[street_hash[name[0]][0]]
-        if street_hash[name[0]][1] in unused:
-            del unused[street_hash[name[0]][1]]
-    if len(c) == 2:
-        name = c[1]
-        if street_hash[name[0]][0] in unused:
-            del unused[street_hash[name[0]][0]]
-schedule  = []
-for i,x in enumerate(intersections):
-    if len(x) == 1 or len(x) >1 and i not in unused:
-        schedule.append(i)
-        schedule.append(1)
-        schedule.append(f'{list(x.values())[0]} 1')
+def baseline_schedule():
+    unused = {}
+    for i in range(0,num_i):
+        unused[i] = 1
+    for c in cars:
+        for name in c[1:-1]:
+            if street_hash[name[0]][0] in unused:
+                del unused[street_hash[name[0]][0]]
+            if street_hash[name[0]][1] in unused:
+                del unused[street_hash[name[0]][1]]
+        if len(c) == 2:
+            name = c[1]
+            if street_hash[name[0]][0] in unused:
+                del unused[street_hash[name[0]][0]]
+    schedule  = []
+    for i,x in enumerate(intersections):
+        if (len(x) == 1 or len(x) >1) and i not in unused:
+            schedule.append(i)
+            schedule.append(1)
+            schedule.append(f'{list(x.values())[0]} 1')
+    return(schedule)
 
-with open('a_submission.txt', 'w') as f:
-    f.write(f'{len(schedule)//3}\n')
-    for s in schedule:
-        f.write(f'{s}\n')
+def write(schedule):
+    with open('a_submission.txt', 'w') as f:
+        f.write(f'{len(schedule)//3}\n')
+        for s in schedule:
+            f.write(f'{s}\n')
+
+schedule = baseline_schedule()
+write(schedule)
