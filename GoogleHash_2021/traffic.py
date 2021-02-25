@@ -10,7 +10,7 @@ num_c = 0
 #bonus points for car that reaches before dur
 bonus = 0
 #street name is key, value: (start,end,length)
-streeth_hash = {}
+street_hash = {}
 with open("./a.txt", "r") as f:
     first = f.readline()
     first = first.split(' ')
@@ -26,8 +26,8 @@ with open("./a.txt", "r") as f:
     for i in range(num_s):
         line = f.readline()
         line = line.split(' ')
-        streeth_hash[line[2]] = (int(line[0]),int(line[1]),int(line[3]))
-        intersections[int(line[0])][int(line[1])] = line[2]#something
+        street_hash[line[2]] = (int(line[0]),int(line[1]),int(line[3]))
+        intersections[int(line[1])][int(line[0])] = line[2]#something
     cars = []
     for i in range(num_c):
         path = []
@@ -37,5 +37,25 @@ with open("./a.txt", "r") as f:
             path.append(street)
         path[-1] = path[-1][:-1]
         cars.append(path)
-with open('demo.txt', 'w') as f:
-    f.write('Now the file has more content!')
+
+unused = {}
+for i in range(0,num_i+1):
+    unused[i] = 1
+
+for c in cars:
+    for name in c[1:-1]:
+        if street_hash[name][0]  in unused:
+            del unused[street_hash[name][0]]
+        if street_hash[name][1] not in unused:
+            del unused[street_hash[name][1]]
+
+schedule  = []
+for i,x in enumerate(intersections):
+    if len(x) == 1:
+        schedule.append(i)
+        schedule.append(1)
+        schedule.append(list(x.values)[0])
+
+with open('A.txt', 'w') as f:
+        for s in schedule:
+            f.write(f'{s}\n')
