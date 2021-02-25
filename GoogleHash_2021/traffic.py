@@ -1,4 +1,6 @@
 import numpy as np
+import os
+import sys
 #duration of simulation
 dur = 0
 #num of intersections o to I-1
@@ -11,6 +13,7 @@ num_c = 0
 bonus = 0
 #street name is key, value: (start,end,length)
 street_hash = {}
+<<<<<<< HEAD
 with open("./a.txt", "r") as f:
     first = f.readline()
     first = first.split(' ')
@@ -33,9 +36,10 @@ with open("./a.txt", "r") as f:
         path = []
         line = f.readline()
         line = line.split(' ')
+        line[-1] = line[-1][:-1]
         for street in line[1:]:
-            path.append(street)
-        path[-1] = path[-1][:-1]
+            path.append((street,street_hash[street][2]))
+        #path[-1] = path[-1][:-1]
         cars.append(path)
 
 unused = {}
