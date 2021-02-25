@@ -46,14 +46,34 @@ def x_path(path:list()):
 
 def delay_time(timestamp:int,intersec_sum:int,currdelay:int):
     modval = timestamp % (intersec_sum + currdelay)
-    if(timestamp % (intersec_sum+currdelay)>currdelay):
-        return modval - currdelay
+    if(timestamp % (intersec_sum+currdelay)>=currdelay):
+        return currdelay + intersec_sum - modval
     return 0
 
-def sum_of_intersections(curr_street, delay_dict):
-    return sum([val for key,val in delay_dict.items() if key != curr_street])
+def sum_of_intersections(curr_incoming, delay_dict):
+    return sum([val for key,val in delay_dict.items() if key != curr_incoming])
 
 
+#print(cars)
+
+#for t in range(10):
+delay=[0]
+for c in cars:
+    t=1
+    for p in c:
+        t+=p[1]
+        print(delay_time(t,sum_of_intersections(street_hash[p[0]][0],intersections[street_hash[p[0]][1]]),intersections[street_hash[p[0]][1]][street_hash[p[0]][0]]))
+        #print(sum_of_intersections(street_hash[p[0]][0],intersections[street_hash[p[0]][1]]))
+        #print(intersections[street_hash[p[0]][1]][street_hash[p[0]][0]])
+        #print(street_hash[p[0]][1])
+        #print(street_hash[p[0]][0])
+        if(p is c[-1]):
+            break
+        delay[-1]+=delay_time(t,sum_of_intersections(street_hash[p[0]][0],intersections[street_hash[p[0]][1]]),intersections[street_hash[p[0]][1]][street_hash[p[0]][0]])    
+    delay.append(0)
+print(delay)
+'''
 print(x_path(cars[0]))
 print(intersections[1])
 print(sum_of_intersections(3,intersections[1]))
+'''
