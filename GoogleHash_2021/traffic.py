@@ -13,8 +13,7 @@ num_c = 0
 bonus = 0
 #street name is key, value: (start,end,length)
 street_hash = {}
-<<<<<<< HEAD
-with open("./a.txt", "r") as f:
+with open(os.path.join(sys.path[0],"a.txt"), "r") as f:
     first = f.readline()
     first = first.split(' ')
     dur = int(first[0])
@@ -38,10 +37,10 @@ with open("./a.txt", "r") as f:
         line = line.split(' ')
         line[-1] = line[-1][:-1]
         for street in line[1:]:
-            path.append((street,street_hash[street][2]))
+            path.append([street,street_hash[street][2]])
         #path[-1] = path[-1][:-1]
         cars.append(path)
-
+        
 unused = {}
 for i in range(0,num_i+1):
     unused[i] = 1
