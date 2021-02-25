@@ -13,7 +13,6 @@ num_c = 0
 bonus = 0
 #street name is key, value: (start,end,length)
 street_hash = {}
-<<<<<<< HEAD
 with open("./a.txt", "r") as f:
     first = f.readline()
     first = first.split(' ')
@@ -55,6 +54,7 @@ for c in cars:
 
 schedule  = []
 for i,x in enumerate(intersections):
+    print(x.values())
     if len(x) == 1:
         schedule.append(i)
         schedule.append(1)
