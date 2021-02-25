@@ -55,4 +55,5 @@ def sum_of_intersections(curr_street, delay_dict):
 
 
 print(x_path(cars[0]))
-print(sum_of_intersections())
+print(intersections[1])
+print(sum_of_intersections(3,intersections[1]))
