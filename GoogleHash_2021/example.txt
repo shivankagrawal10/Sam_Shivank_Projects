@@ -1,4 +1,7 @@
 Hello this is a test
+<<<<<<< HEAD
 one
 two
 three
+=======
+>>>>>>> 2f209bc827a2dbb77f87d8c35cf836bfa6748abc
