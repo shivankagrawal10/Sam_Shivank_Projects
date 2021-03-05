@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import sys
+#from scipy.optimize import annealing
 #duration of simulation
 dur = 0
 #num of intersections o to I-1

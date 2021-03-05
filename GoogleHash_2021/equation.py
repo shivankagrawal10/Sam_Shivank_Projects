@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import sys
+from scipy.optimize import minimize
 #duration of simulation
 dur = 0
 #num of intersections o to I-1
@@ -13,7 +14,7 @@ num_c = 0
 bonus = 0
 #street name is key, value: (start,end,length)
 street_hash = {}
-with open(os.path.join(sys.path[0],"f.txt"), "r") as f:
+with open(os.path.join(sys.path[0],"a.txt"), "r") as f:
     first = f.readline()
     first = first.split(' ')
     dur = int(first[0])
@@ -63,7 +64,7 @@ def baseline_schedule():
     return(schedule)
 
 def write(schedule):
-    with open('f_submission.txt', 'w') as f:
+    with open('a_submission.txt', 'w') as f:
         f.write(f'{len(schedule)//3}\n')
         for s in schedule:
             f.write(f'{s}\n')
